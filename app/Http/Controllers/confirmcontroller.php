@@ -105,7 +105,7 @@ class confirmcontroller extends Controller
 
         $terkirim = count($result) - $result_no;
         
-        return redirect('/topup')->with('status', 'Segera Bayar Tagihan anda. Pesan terkirim' .$terkirim. 'dan Pesan Gagal' .$result_no );     	 
+        return redirect('/topup')->with('status', 'Segera Bayar Tagihan anda.');     	 
     }
 
     public function update(Request $request, user_get $user_get)

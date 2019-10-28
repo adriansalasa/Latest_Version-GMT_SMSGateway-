@@ -2,6 +2,7 @@
 <html>
 <head>
  <title>{{ $title }}</title>
+ <!-- <link rel="icon" type="image/png" href="{{asset('assets/img/gmt/Icon-small.png')}}"> -->
  <link rel="icon" type="image/png" href="{{asset('assets/img/gmt/Icon-small.png')}}">
 </head>
 <body>    

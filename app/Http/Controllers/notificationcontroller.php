@@ -18,12 +18,12 @@ class notificationcontroller extends Controller
      */
     public function index()
     {
-        $notifdb = notifdata::where('confirmYn', 'N')
+        $notifdb = notifdata::where('confirmYn', 'N')->where('paidYn', 'Y')
                     ->get();
 
-         $notifN = buycredit::where('confirmYn', 'N')->count();
+         $notifN = buycredit::where('confirmYn', 'N')->where('paidYn', 'Y')->count();
 
-         return view('admin.notification.index', compact('notifdb', 'notifN'));         
+         return view('admin.notification.index', compact('notifdb', 'notifN'));          
         // return $notifdata;
     }
 
@@ -238,6 +238,6 @@ class notificationcontroller extends Controller
     {
         // return 'hapus ya';
         DB::table('Playsms_BuyCredit')->where('idTagihan',$id)->delete();     
-        return redirect(route('admin.notification'))->with('status', 'Pengisian paket ditolak...!');
+        return redirect(route('admin.notification'))->with('reject', 'Pengisian paket ditolak...!');
     }
 }
