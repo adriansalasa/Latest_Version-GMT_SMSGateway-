@@ -2,7 +2,7 @@
 
 @section('title')
 
-'notification'
+Request Notification
 
 @endsection
 
@@ -13,24 +13,24 @@
  
   <div class="section-header">
 
-    <h1>Notification</h1> 
+    <h1>Notification</h1>  
+             
+  </div>
 
-    </div> 
-      
-    @if (session('success'))
+  @if (session('success'))
         <div id="disappear" class="alert alert-success alert-dismissible mt-2">
           <button type="button" class="close">&times;</button>
           <strong>Selamat...! </strong>{{ session('success') }}
         </div>
-    @endif 
+    @endif   
 
      @if (session('reject'))
         <div id="disappear" class="alert alert-danger alert-dismissible mt-2">
           <button type="button" class="close">&times;</button>
           <strong>Maaf...! </strong> {{ session('reject') }}
         </div>
-    @endif       
-  
+    @endif 
+
   <div class="section-body">
 
     <div class="row">
@@ -43,13 +43,13 @@
 
             <form name="search" action="{{ url()->current() }}">
 
-            <div class="card-header">              
+            <div class="card-header">               
+
                <button type="button" class="btn btn-sm btn-info mr-2" id="multiConfirm"><i class="fa fa-check-circle"></i> Confirm</button>
 
                 <button type="button" class="btn btn-sm btn-danger mr-2" id="bulk_delete_contact"><i class="fa fa-trash"></i> Reject</button>
 
                 
-
                 <h4></h4>
 
                 <div class="card-header-form">
@@ -65,9 +65,7 @@
                       <div class="input-group-btn">
 
                         <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-
                         
-
                         <div class="float-right ml-2">
 
                             <select class="form-control-sm" style=" width:80px" name="total" id="total" onchange="getval(this);"> 
@@ -120,9 +118,11 @@
 
                       <th>Pesan</th>
 
-                      <th  style="width:20%">Tanggal</th>
+                      <th style="width: 15%">Struk Transfer</th>
 
-                      <th colspan="2" style="width:10%" class="text-center">Action</th>
+                      <th  style="width:20%">Tanggal</th>                      
+
+                      <th colspan="2" style="width:10%" class="text-center" id="hAct">Action</th>
 
                     </tr>
 
@@ -154,22 +154,28 @@
                           <a class="text-danger" href="{{url('notification/view/'.$notif->idTagihan)}}">Request Pengisian Paket {{$notif->nominal}}...</a>
                       </td>
 
+                       <td>                                                  
+                          <a target="_blank" href="{{url('assets/img/bk_trans/'.$notif->pathGambar)}}" 
+                            id="CimgBk">
+                              <img src="{{url('assets/img/bk_trans/'.$notif->pathGambar)}}" alt="Bukti Transfer" class="imgBk" id="clImg">                           
+                          </a>                                                 
+                      </td>
+
                       <td>
 
                           <!-- {{Carbon\Carbon::parse($notif->createDt)->addHour('7')}} -->
                           {{($notif->createDt)}}
 
-                      </td>
+                      </td>                     
                       
-                       <td >                           
+                       <td>                           
                           <form action="{{url('notification/'.$notif->idTagihan)}}" method="POST">
                             @csrf                             
-                            <button type="submit" class="btn btn-link text-success" title="Confirm"><i class="fa fa-thumbs-up fa-2x"></i></button>
+                            <button type="submit" class="btn btn-link text-success mr-3" title="Confirm"><i class="fa fa-thumbs-up fa-2x"></i></button>
                           </form>                        
                        </td>
                       
-
-                       <td >                         
+                       <td>                     
                           <form class="delete" action="{{url('notification/'.$notif->idTagihan)}}" method="POST">
                             @method('put')
                             @csrf
@@ -255,7 +261,8 @@
 
           {
 
-              if(confirm('Apakah Anda yakin akan Reject '+list_id.length+' paket data ini...?'))                  
+              if(confirm('Are you sure delete this '+list_id.length+' data?'))
+
               {
                 
                 var csrf = $('meta[name="csrf-token"]').attr('content');
@@ -322,8 +329,9 @@
 
                 {
                    
-                  // alert(data);   
-                  swal ( "Oops" ,(data),  "error" );                
+                  // alert(data);               
+                  // swal(data);
+                  swal ( "Oops" ,(data),  "error" );
                   window.location = "{{ route('admin.notification') }}";                  
 
                 }
@@ -367,9 +375,9 @@
 
           {
 
-              if(confirm('Apakah anda yakin akan konfirmasi '+list_id.length+' paket data ini...?'))             
-              {              
+              if(confirm('Are you sure want to confirm this '+list_id.length+' data?'))
 
+              {                
                 var csrf = $('meta[name="csrf-token"]').attr('content');
                
                 $.ajax({
@@ -433,7 +441,7 @@
 
                 {                  
 
-                 // swal(data);
+                  // swal(data);
                   swal({
                   title: "Paket Confirm",
                   text: (data),

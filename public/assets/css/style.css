@@ -85,6 +85,12 @@
  *    3.24 Custom Badge
 
  *    3.25 Required sign
+
+ *    3.26 Upload border
+
+ *    3.27 Img Hover
+
+ *    3.28 modal
  
 
  * 4. Theme Style
@@ -101,7 +107,7 @@
 
  * 5. Responsive
 
- *
+ * 6. Upload Img
 
  */
 
@@ -4841,6 +4847,42 @@ h6 .badgePill {
 }
 
 
+/* 3.26 Upload border */
+
+#frmGroup .gmbrHsl{
+  width: 50px;   
+  padding: 5px;
+  border: 1px solid lightblue;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+
+/* 3.27 Img Hover */
+
+img:hover{
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+
+/* 3.28 Modal */
+
+.modal-body{
+  font-family: viga;
+  font-size: 20px;  
+}
+
+.modal-header h2{ 
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modal-footer #btnClose{
+  font-family: viga;
+  font-size: 18px;    
+  text-transform: uppercase;
+}
+
 
 /* 4.2 Section */
 
@@ -6111,4 +6153,18 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     -webkit-transform: scale(1.2, 1.2);
 
     opacity: 0.0; } }
+
+
+
+/* 6. Upload Img */        
+
+.imgBk{
+  width: 50px;   
+  height: 50px;
+  padding: 5px;
+  border: 1px solid lightblue;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-left: 15px;
+}
 

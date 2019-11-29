@@ -1,33 +1,3 @@
- <!-- <style>
-      /*green button*/
-    /* .button
-     {
-      background-color: rgb(50,205,50); 
-      border: none;
-      border-radius: 4px;
-     }
-     .button:hover {background-color: #3e8e41}    */
-
-      /*orange button*/
-     /*.button2
-     {
-      background-color: rgb(255,128,0); 
-      border: none;
-      border-radius: 4px;
-     }
-     .button2:hover {background-color: rgb(128,128,0);}   */
-      
-      /*maroon button*/
-     /*.button3
-     {
-      background-color: maroon; 
-      border: none;
-      border-radius: 4px;
-     }
-     .button3:hover {background-color: rgb(165,42,42);}   */
-
-</style> -->
-
 @extends('layouts.admin-master')
 
 @section('title')
@@ -199,10 +169,10 @@
 
   //Refresh jumlah saldo yang tersisa dlm 5 detik
   var auto_refresh = setInterval(
-  function ()
-  {
-  $('.sCredit').load(location.href + " #divSaldo").fadeIn("slow");
-  }, 3000); // refresh every 15000 milliseconds
+    function ()
+    {
+      $('.sCredit').load(location.href + " #divSaldo").fadeIn("slow");
+    }, 3000); // refresh every 15000 milliseconds
 
 //   var auto_refresh = setInterval(function () {
 //     $('.sCredit').fadeIn('slow', function() {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\buycredit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Validator,Redirect,Response,File;
 
 class pay_verify_controller extends Controller
 {
@@ -39,18 +40,21 @@ class pay_verify_controller extends Controller
 
         $request->validate([
             'rek_BuyerEx' => 'required',
-            'rNm_BuyerEx' => 'required'
+            'rNm_BuyerEx' => 'required',
+             'lblFile' => 'required'
         ]);
-                
+        $lblFile = $request->file('lblFile');      
+        $nmFile = $lblFile->getClientOriginalName();    
         // buycredit::where('nomor_tagihan', $request->Hid_kdBooking)
         //          ->update([
         //             'paidYn' => 'Y'
         //          ]);    
-       
-         DB::table('Playsms_BuyCredit')->where('nomor_tagihan',$request->Hid_kdBooking)->update([
-        'paidYn' => 'Y', 'nrek_pembeli' => $request->rek_BuyerEx, 'nmrek_pembeli' => $request->rNm_BuyerEx
-        ]);                     
+        $folderUpload = 'assets/img/bk_trans';
+        $lblFile->move($folderUpload, $lblFile->getClientOriginalName());        
 
+         DB::table('Playsms_BuyCredit')->where('nomor_tagihan',$request->Hid_kdBooking)->update([
+        'paidYn' => 'Y', 'nrek_pembeli' => $request->rek_BuyerEx, 'nmrek_pembeli' => $request->rNm_BuyerEx,'pathGambar'=> $nmFile ]);                         
+         
         return redirect(route('admin.pay_verify'))->with('status', 'Paket anda segera dikonfirmasi admin..!');               
     }
 

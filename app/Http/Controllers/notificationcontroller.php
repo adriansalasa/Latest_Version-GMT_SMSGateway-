@@ -91,7 +91,7 @@ class notificationcontroller extends Controller
 
             $jmlAmount = $FCredit->nominal;
             $userID = $FCredit->idUser;                                         
-            $nmPaket = $FCredit->nama_paket;
+            $nmPaket = $FCredit->nama_paket;            
         } 
 
 
@@ -99,6 +99,7 @@ class notificationcontroller extends Controller
         foreach($users as $user){  
             $usrStatus = $user->status;
             $userNm = $user->username;
+            $pulsa =$user->credit;                     
         }
 
         foreach($FCredits as $FCredit2){                                
@@ -121,7 +122,13 @@ class notificationcontroller extends Controller
 
         $FCredits = DB::table('Playsms_BuyCredit')->where('idTagihan',$updatesData_id)->update([
         'confirmYn' => 'Y'
-        ]);
+        ]);          
+
+        $newPulsa = $jmlAmount;        
+        $totalPulsa = $pulsa + $newPulsa;       
+             
+        $updtPulsa = DB::table('playsms_tblUser')->where('uid', $userID)
+        ->update(['credit'=>$totalPulsa, 'adhoc_credit'=>$totalPulsa]);              
 
         $msgToSend = "Selamat Pembelian Paket " . $nmPaket . "Berhasil" ;
         $sms_footer = "Graha Mitra Teguh";
@@ -167,6 +174,7 @@ class notificationcontroller extends Controller
                 foreach($users as $user){  
                     $usrStatus = $user->status;
                     $userNm = $user->username;
+                    $pulsa = $user->credit;
                 }
                                            
                     $insDB = DB::table('playsms_featureCredit')                                 
@@ -183,7 +191,15 @@ class notificationcontroller extends Controller
                             'flag_deleted' => 0   
                         ]);    
 
-                   $FCredits = DB::table('Playsms_BuyCredit')->whereIn('idTagihan',$updatesData_id_array)->update([ 'confirmYn' => 'Y' ]);     
+                   $FCredits = DB::table('Playsms_BuyCredit')->whereIn('idTagihan',$updatesData_id_array)->update([ 'confirmYn' => 'Y' ]); 
+                
+                //Update total pulsa di table playsms_tblUser   
+                             
+                $newPulsa = $jmlAmount;        
+                $totalPulsa = $pulsa + $newPulsa;        
+
+                $updtPulsa = DB::table('playsms_tblUser')->where('uid', $userID)
+                ->update(['credit'=>$totalPulsa, 'adhoc_credit'=>$totalPulsa]);         
 
                 $msgToSend = "Selamat Pembelian Paket " . $nmPaket . "," . " Berhasil";
                 $sms_footer = "Graha Mitra Teguh";

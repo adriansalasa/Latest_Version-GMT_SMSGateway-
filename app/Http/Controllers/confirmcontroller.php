@@ -67,8 +67,7 @@ class confirmcontroller extends Controller
             'in_datetime' => now(),
             'reference_id' => $tmpNobill,
             'read_status' => 0
-        ]);     
-
+        ]);             
         // DB::table('playsms_featureCredit')->insert([
             
         //  'c_timestamp' =>  $nowTime,
@@ -84,7 +83,7 @@ class confirmcontroller extends Controller
         // ]);  
         $msgToSend = "Pembelian Paket " . $request->nmPaket . "," . " Nomor Tagihan anda adalah " .$tmpNobill. "," . " Silahkan transfer ke rekening berikut:" . $request->noRekv . " A\N :" . $request->namaRek;
         $sms_footer = "Graha Mitra Teguh";
-        $noTlp = "+6282298321921";
+        $noTlp = "082298321921";
 
         $datas = file_get_contents('http://192.168.5.31/index.php?app=ws&u='.Auth::user()->username.'&h='.Auth::user()->token.'&op=pv&to='.$noTlp.'&msg='.$msgToSend.'&footer='.$sms_footer);
 

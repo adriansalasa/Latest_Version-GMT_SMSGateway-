@@ -44,7 +44,7 @@ Dashboard
           <a class="text-decoration-none">
             <div class="card bg-primary text-white">
               <div class="card-body ml-2 mr-2 ballance-icon">
-                <h4>Rp. {{number_format(Auth::user()->credit)}}</h4>
+                <h4 class="sCredit" id="divSaldo">Rp. {{number_format(Auth::user()->credit)}}</h4>
                 <span>Ballance</span>
               </div>
             </div>
@@ -163,12 +163,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
- //Refresh jumlah saldo yang tersisa dlm 5 detik
+ //Refresh jumlah Notifikasi dlm 5 detik
   var auto_refresh = setInterval(
-  function ()
-  {
-  $('.sNotifD').load(location.href + " #divNotifD");
-  }, 5000); // refresh every 15000 milliseconds
+    function ()
+    {
+      $('.sNotifD').load(location.href + " #divNotifD");
+    }, 5000); // refresh every 15000 milliseconds
+
+   //Refresh jumlah saldo yang tersisa dlm 5 detik
+  var auto_refresh = setInterval(
+    function ()
+    {
+      $('.sCredit').load(location.href + " #divSaldo").fadeIn("slow");
+    }, 3000);
 
 </script>
 
