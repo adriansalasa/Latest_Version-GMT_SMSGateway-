@@ -46,7 +46,7 @@ Dashboard
               <div class="card-body ml-2 mr-2 ballance-icon">
                 <h4 class="sCredit" id="divSaldo">Rp. {{number_format(Auth::user()->credit)}}</h4>
                 <span>Ballance</span>
-              </div>
+              </div> 
             </div>
           </a>
         </div>
