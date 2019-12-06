@@ -100,6 +100,7 @@ class notificationcontroller extends Controller
             $usrStatus = $user->status;
             $userNm = $user->username;
             $pulsa =$user->credit;                     
+            $noTlp =$user->mobile; 
         }
 
         foreach($FCredits as $FCredit2){                                
@@ -132,10 +133,10 @@ class notificationcontroller extends Controller
 
         $msgToSend = "Selamat Pembelian Paket " . $nmPaket . "Berhasil" ;
         $sms_footer = "Graha Mitra Teguh";
-        $noTlp = "+6282298321921";
+        // $noTlp = "+6282298321921";
 
         $datas = file_get_contents('http://192.168.5.31/index.php?app=ws&u='.Auth::user()->username.'&h='.Auth::user()->token.'&op=pv&to='.$noTlp.'&msg='.$msgToSend.'&footer='.$sms_footer);
-
+        
         $data = json_decode($datas, true);
 
         $result = [];
@@ -175,6 +176,7 @@ class notificationcontroller extends Controller
                     $usrStatus = $user->status;
                     $userNm = $user->username;
                     $pulsa = $user->credit;
+                    $noTlp =$user->mobile; 
                 }
                                            
                     $insDB = DB::table('playsms_featureCredit')                                 
@@ -203,7 +205,7 @@ class notificationcontroller extends Controller
 
                 $msgToSend = "Selamat Pembelian Paket " . $nmPaket . "," . " Berhasil";
                 $sms_footer = "Graha Mitra Teguh";
-                $noTlp = "+6282298321921";
+                // $noTlp = "+6282298321921";
 
                 $datas = file_get_contents('http://192.168.5.31/index.php?app=ws&u='.Auth::user()->username.'&h='.Auth::user()->token.'&op=pv&to='.$noTlp.'&msg='.$msgToSend.'&footer='.$sms_footer);
 

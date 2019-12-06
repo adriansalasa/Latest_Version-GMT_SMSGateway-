@@ -50,10 +50,10 @@ class pay_verify_controller extends Controller
         //             'paidYn' => 'Y'
         //          ]);    
         $folderUpload = 'assets/img/bk_trans';
-        $lblFile->move($folderUpload, $lblFile->getClientOriginalName());        
+        $lblFile->move($folderUpload, $lblFile->getClientOriginalName());   
 
          DB::table('Playsms_BuyCredit')->where('nomor_tagihan',$request->Hid_kdBooking)->update([
-        'paidYn' => 'Y', 'nrek_pembeli' => $request->rek_BuyerEx, 'nmrek_pembeli' => $request->rNm_BuyerEx,'pathGambar'=> $nmFile ]);                         
+        'paidYn' => 'Y', 'nrek_pembeli' => $request->rek_BuyerEx, 'nmrek_pembeli' => $request->rNm_BuyerEx,'pathGambar'=> $nmFile ]);                           
          
         return redirect(route('admin.pay_verify'))->with('status', 'Paket anda segera dikonfirmasi admin..!');               
     }

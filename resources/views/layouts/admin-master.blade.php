@@ -156,6 +156,8 @@
 
   <script src="{{asset('assets/js/upload.js')}}" ></script>
 
+  <!-- <script src="{{asset('assets/js/secureSubmit.js')}}"></script> -->
+
   <script type="text/javascript">
     function hideLoader() {
     $('#loading').hide();

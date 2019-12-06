@@ -43,7 +43,7 @@ class confirmcontroller extends Controller
             $tmpNobill = ((int)$tmpNobill) + 1 ;
         }
 
-        DB::table('Playsms_BuyCredit')->insert([
+        $creditSave = DB::table('Playsms_BuyCredit')->insert([
             'nomor_tagihan' =>  $tmpNobill,
             'nama_paket' => $request->nmPaket,
             'nominal' =>  $request->isiHrgDb,
@@ -57,7 +57,7 @@ class confirmcontroller extends Controller
             'nm_ATM' => $request->lbl_TATM
         ]);     
 
-        DB::table('playsms_tblSMSInbox')->insert([
+       $inboxSave = DB::table('playsms_tblSMSInbox')->insert([
             'c_timestamp' =>  now()->timestamp,
             'flag_deleted' => 0,
             'in_sender' => '+myIM3',
@@ -68,43 +68,35 @@ class confirmcontroller extends Controller
             'reference_id' => $tmpNobill,
             'read_status' => 0
         ]);             
-        // DB::table('playsms_featureCredit')->insert([
-            
-        //  'c_timestamp' =>  $nowTime,
-        //  'parent_uid' =>  0,
-        //  'uid' =>  "3",
-        //  'username' => "agus",           
-        //  'status' => "3",            
-        //  'amount' => $request->isiHrgDb,
-        //  'balance' => 0,
-        //  'create_datetime' => $timeHour,
-        //  'delete_datetime' => "",
-        //  'flag_deleted' => 0
-        // ]);  
-        $msgToSend = "Pembelian Paket " . $request->nmPaket . "," . " Nomor Tagihan anda adalah " .$tmpNobill. "," . " Silahkan transfer ke rekening berikut:" . $request->noRekv . " A\N :" . $request->namaRek;
-        $sms_footer = "Graha Mitra Teguh";
-        $noTlp = "082298321921";
-
-        $datas = file_get_contents('http://192.168.5.31/index.php?app=ws&u='.Auth::user()->username.'&h='.Auth::user()->token.'&op=pv&to='.$noTlp.'&msg='.$msgToSend.'&footer='.$sms_footer);
-
-        $data = json_decode($datas, true);
-
-        $result = [];
-        foreach ($data['data'] as $item)
-        {
-            $result[] = $item['status'];
-        }
-
-        if(in_array("ERR", $result))
-        {
-            $result_no = array_count_values($result)["ERR"];
-        }else{
-            $result_no = 0;
-        }
-
-        $terkirim = count($result) - $result_no;
+       
+        // $sPaket = $request->nmPaket;
+        // $snoRekv = $request->noRekv;
+        // $snamaRek = $request->namaRek;
+        // $sTagihan = $tmpNobill;
         
-        return redirect('/topup')->with('status', 'Segera Bayar Tagihan anda.');     	 
+        // $msgToSend = "No. Rek " . $snoRekv;
+        // $sms_footer = ""; 
+        // $noTlp = "+6282298321921";        
+
+        // $datas = file_get_contents('http://192.168.5.31/index.php?app=ws&u='.Auth::user()->username.'&h='.Auth::user()->token.'&op=pv&to='.$noTlp.'&msg='.$msgToSend.'&footer='.$sms_footer);        
+
+        // $data = json_decode($datas, true);
+        
+        // $result = [];
+        // foreach ($data['data'] as $item)
+        // {
+        //     $result[] = $item['status'];
+        // }
+
+        // if(in_array("ERR", $result))
+        // {
+        //     $result_no = array_count_values($result)["ERR"];
+        // }else{
+        //     $result_no = 0;
+        // }
+
+        // $terkirim = count($result) - $result_no;        
+        return redirect('/topup')->with('status', 'Segera Bayar Tagihan anda.');     	         
     }
 
     public function update(Request $request, user_get $user_get)
