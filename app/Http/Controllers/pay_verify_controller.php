@@ -51,7 +51,7 @@ class pay_verify_controller extends Controller
         //          ]);    
         $folderUpload = 'assets/img/bk_trans';
         $lblFile->move($folderUpload, $lblFile->getClientOriginalName());   
-
+        
          DB::table('Playsms_BuyCredit')->where('nomor_tagihan',$request->Hid_kdBooking)->update([
         'paidYn' => 'Y', 'nrek_pembeli' => $request->rek_BuyerEx, 'nmrek_pembeli' => $request->rNm_BuyerEx,'pathGambar'=> $nmFile ]);                           
          
@@ -71,12 +71,15 @@ class pay_verify_controller extends Controller
         ]);     
         $CCredits = buycredit::all()->where('nomor_tagihan', $request->kdBooking)->where('paidYn', 'N')->first();            
 
-        if(is_null($CCredits))
-        {
-            return view('admin.pay_verify.index'); 
-        }else{            
-            return view('admin.pay_verify.exist', ['CCredits' => $CCredits]);                            
+         
+        if(!is_null($CCredits)){                              
+            return view('admin.pay_verify.index', compact('CCredits'));             
         }
+        else{
+             $CCredits = 0; 
+            return redirect('pay_verify')->with('notFound', 'Nomor Tagihan tidak ditemukan');
+        }
+
     }
 
     /**
